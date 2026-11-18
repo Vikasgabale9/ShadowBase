@@ -55,6 +55,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee = employeeRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Employee not found"));
 
+        if(!employee.getId().equals(id)){
+            throw new IllegalArgumentException("You can not see other employee details.");
+        }
         return mapToResponse(employee);
     }
 
@@ -76,6 +79,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         if (employeeRepository.existsByEmailAndIdNot(request.getEmail(), id)) {
             throw new IllegalArgumentException("Email is already used by another employee");
+        }
+
+        if(!employee.getId().equals(id)){
+            throw new IllegalArgumentException("You can not update other employee details.");
         }
 
         Department department = departmentRepository.findById(request.getDepartmentId())
