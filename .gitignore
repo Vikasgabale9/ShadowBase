@@ -41,3 +41,35 @@ logs/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+
+# React / Vite Frontend
+Frontend/node_modules/
+Frontend/dist/
+Frontend/.vite/
+
+# Frontend environment files
+Frontend/.env
+Frontend/.env.*
+!Frontend/.env.example
+
+# Frontend build output
+Frontend/coverage/
+
+# Node.js dependencies (any directory)
+node_modules/
+
+# Node.js build files
+dist/
+coverage/
+
+
+# Node.js dependencies
+node_modules/
+
+# Frontend build output
+dist/
+coverage/
+
+# Vite cache
+.vite/
