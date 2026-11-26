@@ -1,3 +1,4 @@
+
 package com.shadowbase.security.jwt;
 
 import io.jsonwebtoken.Jwts;
@@ -40,7 +41,6 @@ public class JwtService {
                 .compact();
     }
 
-
     public String extractEmail(String token) {
         return Jwts.parser()
                 .verifyWith(secretKey)
@@ -59,5 +59,4 @@ public class JwtService {
             return false;
         }
     }
-
 }
