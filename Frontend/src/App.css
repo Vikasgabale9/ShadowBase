@@ -1,0 +1,128 @@
+
+.auth-page {
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+.auth-branding {
+  background: linear-gradient(145deg, #101c36, #193b70);
+  color: white;
+  padding: 65px;
+  align-items: center;
+}
+
+.branding-content {
+  max-width: 520px;
+  width: 100%;
+}
+
+.brand-logo,
+.mobile-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 25px;
+  font-weight: 800;
+}
+
+.branding-message {
+  margin-top: 145px;
+}
+
+.branding-message h1 {
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.branding-message p {
+  color: #c6d3e8;
+  font-size: 16px;
+  line-height: 1.8;
+  margin-top: 24px;
+}
+
+.branding-footer {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 100px;
+  color: #c6d3e8;
+}
+
+.auth-form-container {
+  width: 100%;
+  max-width: 440px;
+  padding: 35px 25px;
+}
+
+.auth-form-container h2 {
+  color: #17243b;
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.auth-form-container .form-label {
+  font-weight: 600;
+  color: #344054;
+}
+
+.auth-form-container .form-control {
+  min-height: 48px;
+  border-radius: 8px;
+  border-color: #dce2eb;
+  padding: 12px;
+}
+
+.auth-form-container .form-control:focus {
+  border-color: #315fba;
+  box-shadow: 0 0 0 3px rgba(49, 95, 186, 0.12);
+}
+
+.auth-submit-btn {
+  background: #2455a4;
+  border-color: #2455a4;
+  min-height: 48px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.auth-submit-btn:hover {
+  background: #193f80;
+  border-color: #193f80;
+}
+
+.auth-switch {
+  margin-top: 25px;
+  text-align: center;
+  color: #667085;
+}
+
+.auth-switch button {
+  border: none;
+  background: transparent;
+  color: #2455a4;
+  font-weight: 700;
+  margin-left: 5px;
+}
+
+.auth-security {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  color: #98a2b3;
+  font-size: 13px;
+  margin-top: 45px;
+}
+
+.mobile-brand {
+  color: #193b70;
+  margin-bottom: 45px;
+}
+
+@media (max-width: 991px) {
+  .auth-form-container {
+    max-width: 480px;
+  }
+}
