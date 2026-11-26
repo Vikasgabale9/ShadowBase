@@ -10,8 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-//import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class ProjectServiceImpl implements ProjectService {
@@ -25,26 +25,29 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public ProjectResponseDto createProject(ProjectRequestDto requestDto) {
 
+        validateDates(requestDto);
+
         Project project = new Project();
 
         project.setProjectName(requestDto.getProjectName());
         project.setDescription(requestDto.getDescription());
 
-        project.setStatus(
-            requestDto.getStatus() == null || requestDto.getStatus().isBlank()
-                ? "PLANNED"
-                : requestDto.getStatus()
-        );
+        String status = requestDto.getStatus();
 
+        if (status == null || status.isBlank()) {
+            status = "PLANNED";
+        } else {
+            validateStatus(status);
+        }
+
+        project.setStatus(status);
         project.setStartDate(requestDto.getStartDate());
         project.setEndDate(requestDto.getEndDate());
-//        project.setCreatedAt(OffsetDateTime.now());
 
         Project savedProject = projectRepository.save(project);
 
         return mapToResponseDto(savedProject);
     }
-
     @Override
     public ProjectResponseDto updateProject(Long id, ProjectRequestDto requestDto) {
 
@@ -53,9 +56,16 @@ public class ProjectServiceImpl implements ProjectService {
                 HttpStatus.NOT_FOUND, "Project not found with id: " + id
             ));
 
+        validateDates(requestDto);
+
         project.setProjectName(requestDto.getProjectName());
         project.setDescription(requestDto.getDescription());
-        project.setStatus(requestDto.getStatus());
+
+        if (requestDto.getStatus() != null && !requestDto.getStatus().isBlank()) {
+            validateStatus(requestDto.getStatus());
+            project.setStatus(requestDto.getStatus());
+        }
+
         project.setStartDate(requestDto.getStartDate());
         project.setEndDate(requestDto.getEndDate());
 
@@ -94,6 +104,34 @@ public class ProjectServiceImpl implements ProjectService {
 
         projectRepository.delete(project);
     }
+    private static final Set<String> ALLOWED_STATUSES = Set.of(
+    	    "PLANNED",
+    	    "IN_PROGRESS",
+    	    "COMPLETED",
+    	    "ON_HOLD",
+    	    "CANCELLED"
+    	);
+
+    	private void validateStatus(String status) {
+    	    if (!ALLOWED_STATUSES.contains(status)) {
+    	        throw new ResponseStatusException(
+    	            HttpStatus.BAD_REQUEST,
+    	            "Invalid project status. Allowed values: " + ALLOWED_STATUSES
+    	        );
+    	    }
+    	}
+
+    	private void validateDates(ProjectRequestDto requestDto) {
+    	    if (requestDto.getStartDate() != null
+    	            && requestDto.getEndDate() != null
+    	            && requestDto.getEndDate().isBefore(requestDto.getStartDate())) {
+
+    	        throw new ResponseStatusException(
+    	            HttpStatus.BAD_REQUEST,
+    	            "Project end date cannot be before start date"
+    	        );
+    	    }
+    	}
 
     private ProjectResponseDto mapToResponseDto(Project project) {
 
