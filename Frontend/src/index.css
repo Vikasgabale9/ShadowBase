@@ -1,11 +1,426 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-* {
-  box-sizing: border-box;
+/* =====================================
+   SHADOWBASE DASHBOARD
+===================================== */
+
+:root {
+  --sb-sidebar-width: 260px;
+  --sb-sidebar-collapsed: 76px;
+  --sb-primary: #2563eb;
+  --sb-dark: #111827;
+  --sb-border: #e5e7eb;
+  --sb-background: #f5f7fb;
 }
 
 body {
   margin: 0;
-  font-family: 'Inter', sans-serif;
-  background-color: #f8fafc;
+  font-family: Inter, "Segoe UI", sans-serif;
+  background: var(--sb-background);
+}
+
+.sb-app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.sb-header {
+  height: 72px;
+  background: #ffffff;
+  border-bottom: 1px solid var(--sb-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 25px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.sb-brand-icon {
+  height: 38px;
+  width: 38px;
+  border-radius: 10px;
+  background: var(--sb-primary);
+  color: white;
+  display: grid;
+  place-items: center;
+  font-size: 21px;
+  font-weight: 800;
+}
+
+.sb-icon-button {
+  width: 40px;
+  height: 40px;
+  border: 0;
+  background: transparent;
+  border-radius: 9px;
+  display: grid;
+  place-items: center;
+  color: #475569;
+}
+
+.sb-icon-button:hover {
+  background: #f1f5f9;
+  color: var(--sb-primary);
+}
+
+.sb-profile-button {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  border: 0;
+  background: #f8fafc;
+  padding: 8px 12px;
+  border-radius: 10px;
+  color: #334155;
+}
+
+.sb-profile-menu {
+  position: absolute;
+  top: 48px;
+  right: 0;
+  width: 230px;
+  background: white;
+  border: 1px solid var(--sb-border);
+  border-radius: 12px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+  z-index: 1200;
+  overflow: hidden;
+}
+
+.sb-logout-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 15px;
+  border: 0;
+  background: white;
+  color: #dc2626;
+  text-align: left;
+}
+
+.sb-logout-button:hover {
+  background: #fef2f2;
+}
+
+.sb-body {
+  display: flex;
+  flex: 1;
+  min-height: calc(100vh - 72px);
+}
+
+.sb-sidebar {
+  width: var(--sb-sidebar-width);
+  background: var(--sb-dark);
+  color: white;
+  padding: 24px 14px;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  transition: width 0.25s ease;
+  position: relative;
+}
+
+.sb-sidebar-collapsed {
+  width: var(--sb-sidebar-collapsed);
+}
+
+.sb-sidebar-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sb-menu-heading {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  color: #94a3b8;
+  padding: 0 12px 15px;
+}
+
+.sb-navigation {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sb-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 12px;
+  border-radius: 9px;
+  color: #cbd5e1;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sb-nav-link:hover {
+  background: #1e293b;
+  color: white;
+}
+
+.sb-nav-link.active {
+  background: var(--sb-primary);
+  color: white;
+}
+
+.sb-nav-disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.sb-coming-soon {
+  margin-left: auto;
+  color: #93c5fd;
+  font-size: 10px;
+}
+
+.sb-sidebar-divider {
+  border-top: 1px solid #374151;
+  margin: 24px 5px;
+}
+
+.sb-sidebar-bottom {
+  margin-top: auto;
+  padding-top: 25px;
+}
+
+.sb-sidebar-version {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #94a3b8;
+  font-size: 11px;
+  padding: 10px;
+  white-space: nowrap;
+}
+
+.sb-status-dot {
+  width: 8px;
+  height: 8px;
+  background: #22c55e;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.sb-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.25s ease;
+}
+
+.sb-page-content {
+  flex: 1;
+  padding: 30px;
+}
+
+.sb-page-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.sb-page-heading h3 {
+  font-size: 25px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 6px;
+}
+
+.sb-page-heading p {
+  color: #64748b;
+  margin: 0;
+  font-size: 14px;
+}
+
+.sb-stat-card,
+.sb-content-card {
+  background: white;
+  border: 1px solid var(--sb-border);
+  border-radius: 13px;
+  padding: 23px;
+  height: 100%;
+}
+
+.sb-stat-card h3 {
+  font-size: 27px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 8px 0;
+}
+
+.sb-stat-title {
+  color: #64748b;
+  font-size: 13px;
+  margin: 0;
+}
+
+.sb-stat-card small {
+  color: #94a3b8;
+}
+
+.sb-stat-icon {
+  width: 47px;
+  height: 47px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+}
+
+.sb-stat-icon.blue {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.sb-stat-icon.green {
+  background: #f0fdf4;
+  color: #16a34a;
+}
+
+.sb-stat-icon.purple {
+  background: #faf5ff;
+  color: #9333ea;
+}
+
+.sb-stat-icon.orange {
+  background: #fff7ed;
+  color: #ea580c;
+}
+
+.sb-content-card h5 {
+  font-weight: 700;
+  margin-bottom: 13px;
+}
+
+.sb-info-panel {
+  background: #eff6ff;
+  padding: 18px;
+  border-radius: 10px;
+  margin-top: 20px;
+  color: #1e40af;
+}
+
+.sb-info-panel p {
+  font-size: 13px;
+}
+
+.sb-quick-list {
+  color: #64748b;
+  padding-left: 20px;
+  line-height: 2.2;
+  font-size: 14px;
+}
+
+.sb-footer {
+  background: white;
+  border-top: 1px solid var(--sb-border);
+  min-height: 65px;
+  padding: 15px 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  color: #475569;
+  font-size: 12px;
+}
+
+.sb-github-link {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #475569;
+  text-decoration: none;
+}
+
+.sb-github-link:hover {
+  color: var(--sb-primary);
+}
+
+.sb-copyright {
+  color: #94a3b8;
+}
+
+.sb-mobile-close,
+.sb-sidebar-overlay {
+  display: none;
+}
+
+/* =====================================
+   RESPONSIVE DESIGN
+===================================== */
+
+@media (max-width: 768px) {
+  .sb-header {
+    padding: 0 14px;
+  }
+
+  .sb-sidebar {
+    position: fixed;
+    top: 72px;
+    bottom: 0;
+    left: 0;
+    width: 260px;
+    z-index: 1100;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+  }
+
+  .sb-sidebar-mobile-open {
+    transform: translateX(0);
+  }
+
+  .sb-sidebar-collapsed {
+    width: 260px;
+  }
+
+  .sb-sidebar-overlay {
+    display: block;
+    position: fixed;
+    inset: 72px 0 0;
+    background: rgba(15, 23, 42, 0.5);
+    z-index: 1050;
+  }
+
+  .sb-mobile-close {
+    display: block;
+    border: 0;
+    background: transparent;
+    color: white;
+  }
+
+  .sb-page-content {
+    padding: 20px 15px;
+  }
+
+  .sb-footer {
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .sb-brand small {
+    display: none;
+  }
+
+  .sb-brand h5 {
+    font-size: 16px;
+  }
+
+  .sb-profile-button {
+    padding: 7px;
+  }
 }
