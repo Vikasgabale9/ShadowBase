@@ -8,7 +8,7 @@ public class ShadowbaseApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ShadowbaseApplication.class, args);
-		System.out.println("Success...!");
+		
 	}
 
 }
