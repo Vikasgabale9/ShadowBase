@@ -62,9 +62,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee = employeeRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Employee not found"));
 
-        if(!employee.getId().equals(id)){
-            throw new IllegalArgumentException("You can not see other employee details.");
-        }
         return mapToResponse(employee);
     }
 

@@ -10,7 +10,7 @@ import {
   Alert,
   Spinner,
 } from 'react-bootstrap';
-
+import { useNavigate } from "react-router-dom";
 import { ShieldCheck, LockKeyhole, Users } from 'lucide-react';
 import { loginUser, registerUser } from '../../services/authService';
 import '../../App.css';
@@ -20,7 +20,7 @@ function AuthPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
-
+const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -65,7 +65,7 @@ function AuthPage() {
       setMessage(response.message);
 
       // Navigate to dashboard
-      window.location.href = '/dashboard';
+     navigate("/dashboard", { replace: true });
 
     } catch (err) {
       const responseData = err.response?.data;
