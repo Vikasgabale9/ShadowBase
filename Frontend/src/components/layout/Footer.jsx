@@ -5,6 +5,7 @@ import { Database } from "lucide-react";
 function Footer() {
   return (
     <footer className="sb-footer">
+
       <div className="d-flex align-items-center gap-2">
         <Database size={16} />
         <span>ShadowBase</span>

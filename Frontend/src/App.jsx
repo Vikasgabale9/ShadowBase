@@ -1,4 +1,5 @@
 
+
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import AuthPage from "./pages/auth/AuthPage";
@@ -15,9 +16,11 @@ function isAuthenticated() {
 
 // Protect dashboard routes
 function ProtectedRoute({ children }) {
-  return isAuthenticated()
-    ? children
-    : <Navigate to="/" replace />;
+  if (!isAuthenticated()) {
+    return <Navigate to="/" replace />;
+  }
+
+  return children;
 }
 
 // Placeholder for modules under development
@@ -58,21 +61,22 @@ function App() {
         <Route index element={<Dashboard />} />
 
         {/* Employee Management */}
-          <Route
-            path="employees"
-            element={<EmployeePage />}
-          />
+        <Route
+          path="employees"
+          element={<EmployeePage />}
+        />
 
         {/* Department Management */}
-          <Route
-            path="departments"
-            element={<DepartmentPage />}
-          />
-
         <Route
-            path="projects"
-            element={<ProjectPage />}
-          />
+          path="departments"
+          element={<DepartmentPage />}
+        />
+
+        {/* Project Management */}
+        <Route
+          path="projects"
+          element={<ProjectPage />}
+        />
 
         {/* Schema Migration */}
         <Route
