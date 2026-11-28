@@ -1,14 +1,20 @@
 
+
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import AuthPage from "./pages/auth/AuthPage";
 import DashboardLayout from "./components/layout/DashboardLayout";
 import Dashboard from "./pages/Dashboard";
+import DepartmentPage from "./pages/DepartmentPage";
+import EmployeePage from "./pages/EmployeePage";
+import ProjectPage from "./pages/ProjectPage";
 
+// Authentication check
 function isAuthenticated() {
   return Boolean(localStorage.getItem("token"));
 }
 
+// Protect dashboard routes
 function ProtectedRoute({ children }) {
   if (!isAuthenticated()) {
     return <Navigate to="/" replace />;
@@ -17,6 +23,7 @@ function ProtectedRoute({ children }) {
   return children;
 }
 
+// Placeholder for modules under development
 function ModulePlaceholder({ title }) {
   return (
     <div className="sb-content-card">
@@ -31,6 +38,7 @@ function ModulePlaceholder({ title }) {
 function App() {
   return (
     <Routes>
+      {/* Login / Registration */}
       <Route
         path="/"
         element={
@@ -40,6 +48,7 @@ function App() {
         }
       />
 
+      {/* Protected Dashboard */}
       <Route
         path="/dashboard"
         element={
@@ -48,34 +57,45 @@ function App() {
           </ProtectedRoute>
         }
       >
+        {/* Dashboard Home */}
         <Route index element={<Dashboard />} />
 
+        {/* Employee Management */}
         <Route
           path="employees"
-          element={<ModulePlaceholder title="Employee Management" />}
+          element={<EmployeePage />}
         />
 
+        {/* Department Management */}
         <Route
           path="departments"
-          element={<ModulePlaceholder title="Department Management" />}
+          element={<DepartmentPage />}
         />
 
+        {/* Project Management */}
         <Route
           path="projects"
-          element={<ModulePlaceholder title="Project Management" />}
+          element={<ProjectPage />}
         />
 
+        {/* Schema Migration */}
         <Route
           path="schema-migrations"
-          element={<ModulePlaceholder title="Schema Migrations" />}
+          element={
+            <ModulePlaceholder title="Schema Migrations" />
+          }
         />
 
+        {/* Settings */}
         <Route
           path="settings"
-          element={<ModulePlaceholder title="Settings" />}
+          element={
+            <ModulePlaceholder title="Settings" />
+          }
         />
       </Route>
 
+      {/* Invalid routes */}
       <Route
         path="*"
         element={<Navigate to="/" replace />}
