@@ -108,7 +108,6 @@ public class ProjectServiceImpl implements ProjectService {
     	    "PLANNED",
     	    "IN_PROGRESS",
     	    "COMPLETED",
-    	    "ON_HOLD",
     	    "CANCELLED"
     	);
 
